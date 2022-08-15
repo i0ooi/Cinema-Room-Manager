@@ -1,7 +1,29 @@
-import java.util.function.IntToDoubleFunction
-
 var purchasedTicket = 0
 var currentIncome = 0
+
+fun main() {
+    println("Enter the number of rows:")
+    val rows = readln().toInt()
+    println("Enter the number of seats in each row:")
+    val seatsInRow = readln().toInt()
+    val totalSeats = rows * seatsInRow
+    var mainList = MutableList(rows) { ((1..seatsInRow).map { "S" } as MutableList<String>) }
+
+    var state = true
+
+    while (state) {
+        println("1. Show the seats")
+        println("2. Buy a ticket")
+        println("3. Statistics")
+        println("0. Exit")
+        when (readln().toInt()) {
+            1 -> showSeatingArrangment(rows, seatsInRow, mainList)
+            2 -> mainList = buyTicket(totalSeats, mainList)
+            3 -> statistics(totalSeats, mainList, seatsInRow)
+            0 -> state = false
+        }
+    }
+}
 
 fun buyTicket(totalSeats: Int, mainList: MutableList<MutableList<String>>): MutableList<MutableList<String>> {
     println("Enter a row number:")
@@ -64,33 +86,6 @@ fun showSeatingArrangment(rows: Int, seatsInRow: Int, mainList: MutableList<Muta
         println("${it + 1} ${mainList[it].joinToString(" ")}")
     }
 }
-
-fun main() {
-    println("Enter the number of rows:")
-    val rows = readln().toInt()
-    println("Enter the number of seats in each row:")
-    val seatsInRow = readln().toInt()
-    val totalSeats = rows * seatsInRow
-    var mainList = MutableList(rows) { ((1..seatsInRow).map { "S" } as MutableList<String>) }
-
-    var rowNumber: Int
-    var seatNumber: Int
-    var state = true
-
-    while (state) {
-        println("1. Show the seats")
-        println("2. Buy a ticket")
-        println("3. Statistics")
-        println("0. Exit")
-        when (readln().toInt()) {
-            1 -> showSeatingArrangment(rows, seatsInRow, mainList)
-            2 -> mainList = buyTicket(totalSeats, mainList)
-            3 -> statistics(totalSeats, mainList, seatsInRow)
-            0 -> state = false
-        }
-    }
-}
-
 
 
 
